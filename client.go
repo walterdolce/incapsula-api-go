@@ -26,11 +26,7 @@ func (c *Client) getResponse() *Response {
 	return c.response
 }
 
-func (c *Client) getIpRanges() string {
-	return c.getResponse().Raw
-}
-
-func (c *Client) getIPv4Ranges() []string {
+func (c *Client) getIpRanges() []string {
 
 	var ipsResponse = IpsResponse{}
 
@@ -39,4 +35,12 @@ func (c *Client) getIPv4Ranges() []string {
 	}
 
 	return ipsResponse.IpRanges
+}
+
+func (c *Client) getIPv4Ranges() []string {
+	return c.getIpRanges()
+}
+
+func (c *Client) getRawResponse() string {
+	return c.getResponse().Raw
 }

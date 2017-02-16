@@ -7,7 +7,6 @@ import (
 
 func Test_it_returns_IPv4_ranges_only(t *testing.T) {
 	client := Client{}
-	returned_ipv4_ranges := client.getIPv4Ranges()
 	expected_ipv4_ranges := []string{
 		"199.83.128.0/21",
 		"198.143.32.0/19",
@@ -18,14 +17,16 @@ func Test_it_returns_IPv4_ranges_only(t *testing.T) {
 		"45.64.64.0/22",
 		"107.154.0.0/16"}
 
-	if !reflect.DeepEqual(returned_ipv4_ranges, expected_ipv4_ranges) {
-		t.Errorf("Expected '%s' but got '%s'", expected_ipv4_ranges, returned_ipv4_ranges)
+	for _, ip_ranges := range [][]string{client.getIPv4Ranges(), client.getIpRanges()} {
+		if !reflect.DeepEqual(ip_ranges, expected_ipv4_ranges) {
+			t.Errorf("Expected '%s' but got '%s'", expected_ipv4_ranges, ip_ranges)
+		}
 	}
 }
 
-func TestClientReturnsIncapsulaIpRanges(t *testing.T) {
+func Test_it_returns_the_raw_json_response(t *testing.T) {
 	client := Client{}
-	jsonResponse := client.getIpRanges()
+	jsonResponse := client.getRawResponse()
 	expectedResponse := NewResponse().Raw
 
 	if jsonResponse != expectedResponse {
