@@ -11,7 +11,7 @@ type Client struct {
 
 type IpsResponse struct {
 	IpRanges   []string
-	Ip6Ranges  []string
+	Ipv6Ranges []string
 	Res        int
 	ResMessage string
 	DebugInfo  struct {
@@ -26,19 +26,25 @@ func (c *Client) getResponse() *Response {
 	return c.response
 }
 
-func (c *Client) getIpRanges() []string {
-
+func (c *Client) getIpsResponse() IpsResponse {
 	var ipsResponse = IpsResponse{}
 
 	if err := json.Unmarshal([]byte(c.getResponse().Raw), &ipsResponse); err != nil {
 		log.Fatalln("error:", err)
 	}
+	return ipsResponse
+}
 
-	return ipsResponse.IpRanges
+func (c *Client) getIpRanges() []string {
+	return c.getIpsResponse().IpRanges
 }
 
 func (c *Client) getIPv4Ranges() []string {
 	return c.getIpRanges()
+}
+
+func (c *Client) getIPv6Ranges() []string {
+	return c.getIpsResponse().Ipv6Ranges
 }
 
 func (c *Client) getRawResponse() string {
