@@ -50,3 +50,7 @@ func (c *Client) getIPv6Ranges() []string {
 func (c *Client) getRawResponse() string {
 	return c.getResponse().Raw
 }
+
+func (c *Client) getRes() int {
+	return c.getIpsResponse().Res
+}
