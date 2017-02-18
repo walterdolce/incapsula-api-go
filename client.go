@@ -12,11 +12,9 @@ type Client struct {
 type IpsResponse struct {
 	IpRanges   []string
 	Ipv6Ranges []string
-	Res        int
-	ResMessage string
-	DebugInfo  struct {
-		IdInfo string
-	}
+	Res        int               `json:"res"`
+	ResMessage string            `json:"res_message"`
+	DebugInfo  map[string]string `json:"debug_info"`
 }
 
 func (c *Client) getResponse() *Response {
@@ -53,4 +51,12 @@ func (c *Client) getRawResponse() string {
 
 func (c *Client) getRes() int {
 	return c.getIpsResponse().Res
+}
+
+func (c *Client) getResMessage() string {
+	return c.getIpsResponse().ResMessage
+}
+
+func (c *Client) getDebugInfo() map[string]string {
+	return c.getIpsResponse().DebugInfo
 }

@@ -47,17 +47,29 @@ func Test_it_returns_the_raw_json_response(t *testing.T) {
 	}
 }
 
-func Test_it_returns_the_response_code(t *testing.T) {
+func Test_it_returns_the_res_code_from_the_response(t *testing.T) {
 	client := Client{}
 	res := client.getRes()
 	expectedRes := 0
 	if res != expectedRes {
-		t.Errorf("Expected '%s' but got '%s'", expectedRes, res)
+		t.Errorf("Expected '%v' but got '%v'", expectedRes, res)
 	}
 }
 
-//TODO:
-//"res_message": "OK",
-//"debug_info": {
-//"id-info": "9088"
-//}
+func Test_it_returns_the_res_message_from_the_response(t *testing.T) {
+	client := Client{}
+	resMessage := client.getResMessage()
+	expectedResMessage := "OK"
+	if resMessage != expectedResMessage {
+		t.Errorf("Expected '%s' but got '%s'", expectedResMessage, resMessage)
+	}
+}
+
+func Test_it_returns_the_debug_info_from_the_response(t *testing.T) {
+	client := Client{}
+	debugInfo := client.getDebugInfo()
+	expectedDebugInfo := map[string]string{"id-info": "9088"}
+	if !reflect.DeepEqual(debugInfo, expectedDebugInfo) {
+		t.Errorf("Expected '%v' but got '%v'", expectedDebugInfo, debugInfo)
+	}
+}
