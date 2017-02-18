@@ -9,14 +9,6 @@ type Client struct {
 	response *Response
 }
 
-type IpsResponse struct {
-	IpRanges   []string
-	Ipv6Ranges []string
-	Res        int               `json:"res"`
-	ResMessage string            `json:"res_message"`
-	DebugInfo  map[string]string `json:"debug_info"`
-}
-
 func (c *Client) getResponse() *Response {
 	if c.response == nil {
 		c.response = NewResponse()
